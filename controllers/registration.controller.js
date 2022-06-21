@@ -64,6 +64,13 @@ const updateRegistration = async (req, res) => {
       });
     }
 
+    if (registration.status !== 'working') {
+      return res.status(400).json({
+        status: 'error',
+        message: 'The employed is not working',
+      });
+    }
+
     await registration.update({
       exitTime: new Date(),
       status: 'out',
@@ -87,6 +94,13 @@ const deleteRegistration = async (req, res) => {
       return res.status(404).json({
         status: 'error',
         message: 'Registration not found',
+      });
+    }
+
+    if (registration.status !== 'working') {
+      return res.status(400).json({
+        status: 'error',
+        message: 'The employed is not working',
       });
     }
 
